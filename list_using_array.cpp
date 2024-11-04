@@ -87,6 +87,7 @@ public:
                 listArray[i + 1] = listArray[i];
             }
             listArray[0] = value;
+            listSize++;
         }
         return true;
     }
@@ -131,9 +132,11 @@ public:
         return true;
     }
     void display(){
+        cout<<"The lists are\n";
         for(int i =0 ; i < listSize;i++){
             cout<<listArray[i]<<", ";
         }
+        cout<<endl;
     }
 };
 
