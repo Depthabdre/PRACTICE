@@ -23,7 +23,7 @@ void insertAtTheBeg(student *p)
 
 void insertAtTheEnd(student *p)
 {
-    if (start = NULL)
+    if (start == NULL)
     {
         start = p;
       
@@ -34,6 +34,7 @@ void insertAtTheEnd(student *p)
         while (temp->next != NULL)
             temp = temp->next;
         temp->next = p;
+        p->next = NULL;
       
     }
 }
@@ -98,15 +99,17 @@ void backWardTraverse()
         temp = temp->next;
         cur += 1;
     }
-    for (int i = 1; i <= cur; i++)
+     cout<<temp->name<<" ";
+    for (int i = 0; i < cur-1; i++)
     {
         student *q = start;
-        for (int j = i + 2; j <= cur; j++)
+        for (int j = i + 2; j < cur; j++)
         {
             q = q->next;
         }
-        cout<<temp->name<<" ";
         temp=q;
+        cout<<temp->name<<" ";
+        
     }
 }
 
