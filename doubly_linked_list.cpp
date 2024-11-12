@@ -5,6 +5,7 @@ struct student
 {
     char name[20];
     student *next;
+    student *prev;
 };
 student *start = NULL;
 void insertAtTheBeg(student *p)
@@ -13,14 +14,15 @@ void insertAtTheBeg(student *p)
     {
         start = p;
         p->next = NULL;
+        p->prev = NULL;
     }
     else
     {
         p->next = start; 
+        p->prev = NULL;
         start = p;       
     }
 }
-
 void insertAtTheEnd(student *p)
 {
     if (start == NULL)
@@ -34,6 +36,7 @@ void insertAtTheEnd(student *p)
         while (temp->next != NULL)
             temp = temp->next;
         temp->next = p;
+        p->prev = temp;
         p->next = NULL;
       
     }
@@ -45,38 +48,30 @@ void insertAtAnyPosition(student *p, int pos)
     {
         temp = temp->next;
     }
+    student *q = temp;
     p->next = temp->next;
-    temp->next = p;
+    temp->next->prev = p;
+    p->prev = q;
+    q->next = p;
+    
 }
 void DeleteFirstNode()
 {
     student *p = start;
     start = p->next;
+    p->next->prev = NULL;
     delete p;
 }
 void DeleteLasttNode()
 {
-    if (start == NULL) 
-        return;
-    
     student *temp = start;
-
-    
-    if (temp->next == NULL) {
-        delete temp;
-        start = NULL;
-        return;
-    }
-
-    
     while (temp->next->next != NULL)
         temp = temp->next;
-    
-    student *q = temp->next; 
-    temp->next = NULL;       
-    delete q;                
+    student *q = temp->next;
+    temp->next = NULL;
+    q->prev = NULL;
+    delete q;
 }
-
 void DeleteParticularNode(int pos)
 {
     student *temp = start;
@@ -86,6 +81,7 @@ void DeleteParticularNode(int pos)
     }
     student *q = temp->next;
     temp->next = temp->next->next;
+    temp->next->next->prev = temp;
     delete q;
 }
 void forWardTraverse()
@@ -110,25 +106,21 @@ void forWardTraverse()
 void backWardTraverse()
 {
     student *temp = start;
-    int cur = 1;
     while (temp->next != NULL)
     {
         temp = temp->next;
-        cur += 1;
     }
-     cout<<temp->name<<" ";
-    for (int i = 0; i < cur-1; i++)
-    {
-        student *q = start;
-        for (int j = i + 2; j < cur; j++)
-        {
-            q = q->next;
-        }
-        temp=q;
-        cout<<temp->name<<" ";
-        
+    while(temp->prev != NULL){
+        cout<< temp->name<<" ";
+        temp = temp->prev;
     }
+    cout<<endl;
+
+
 }
+
+
+
 
 int main() {
     int choice;
