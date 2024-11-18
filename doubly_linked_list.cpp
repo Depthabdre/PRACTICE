@@ -10,17 +10,16 @@ struct student
 student *start = NULL;
 void insertAtTheBeg(student *p)
 {
-    if (start == NULL) 
-    {
+    if (start == NULL) {
         start = p;
         p->next = NULL;
         p->prev = NULL;
-    }
-    else
-    {
-        p->next = start; 
+    } else {
+        student *temp = start;
+        p->next = start;
         p->prev = NULL;
-        start = p;       
+        temp->prev = p;
+        start = p;
     }
 }
 void insertAtTheEnd(student *p)
@@ -84,40 +83,39 @@ void DeleteParticularNode(int pos)
     temp->next->next->prev = temp;
     delete q;
 }
-void forWardTraverse()
-{
-    student *temp = start;
-    if (start == NULL)
-    cout<<" There is no element to display\n";
-    else if (temp->next = NULL){
-        cout << temp->name << " ";
+void forWardTraverse() {
+    student *temp = start;  
+
+    if (start == NULL) {
+        cout << "There is no element to display\n";
+    } else {
+        while (temp != NULL) { 
+            cout << temp->name << " ";
+            temp = temp->next; 
+        }
+        cout << endl; 
     }
-    else{
-    
-    while (temp->next != NULL)
-    {
-        cout << temp->name << " ";
+}
+
+void backWardTraverse() {
+    student *temp = start;
+
+    if (start == NULL) {
+        cout << "There is no element to display\n";
+        return;
+    }
+    while (temp->next != NULL) {
         temp = temp->next;
     }
-    cout<<temp->name;
-    }
-    cout << endl;
-}
-void backWardTraverse()
-{
-    student *temp = start;
-    while (temp->next != NULL)
-    {
-        temp = temp->next;
-    }
-    while(temp->prev != NULL){
-        cout<< temp->name<<" ";
-        temp = temp->prev;
-    }
-    cout<<endl;
 
+    while (temp != NULL) { 
+        cout << temp->name << " ";
+        temp = temp->prev; 
+    }
 
+    cout << endl; 
 }
+
 
 
 

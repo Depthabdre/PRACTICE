@@ -41,12 +41,22 @@ void insertAtTheEnd(student *p)
 void insertAtAnyPosition(student *p, int pos)
 {
     student *temp = start;
+     if (pos == 1) {
+        insertAtTheBeg(p);  
+    }
+    else{
     for (int i = 0; i < pos - 2; i++)
     {
         temp = temp->next;
     }
+    if (temp == NULL) {
+            cout << "Position out of bounds.\n";
+            delete p;
+            return;
+        }
     p->next = temp->next;
     temp->next = p;
+    }
 }
 void DeleteFirstNode()
 {
@@ -93,7 +103,7 @@ void forWardTraverse()
     student *temp = start;
     if (start == NULL)
     cout<<" There is no element to display\n";
-    else if (temp->next = NULL){
+    else if (temp->next == NULL){
         cout << temp->name << " ";
     }
     else{
