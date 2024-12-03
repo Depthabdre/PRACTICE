@@ -59,35 +59,35 @@ int stack_array_peek() {
 }
 
 // Linked list stack global pointer
-Node* stack_linked_list = nullptr;
+Node* topPtr = nullptr; // its is head pointer points to the top of stack whoch is found in the first elemnt in the stack
 
 // Linked list-based stack functions
-void stack_linked_list_push(int num) {
+void topPtr_push(int num) {
     Node* newNode = new Node();
     newNode->data = num;
-    newNode->next = stack_linked_list;
-    stack_linked_list = newNode;
-    cout << "Pushed: " << num << " (stack_linked_list)\n";
+    newNode->next = topPtr; // element always add to the first or head pointer
+    topPtr = newNode;
+    cout << "Pushed: " << num << " (topPtr)\n";
 }
 
-void stack_linked_list_pop() {
-    if (stack_linked_list == nullptr) {
+void topPtr_pop() {
+    if (topPtr == nullptr) {
         cout << "ALERT!!!! Stack is Empty!!!!\n";
         return;
     }
-    Node* temp = stack_linked_list;
-    cout << "Popped: " << stack_linked_list->data << " (stack_linked_list)\n";
-    stack_linked_list = stack_linked_list->next;
+    Node* temp = topPtr;
+    cout << "Popped: " << topPtr->data << " (topPtr)\n";
+    topPtr = topPtr->next;
     delete temp;
 }
 
-void stack_linked_list_display() {
-    if (stack_linked_list == nullptr) {
+void topPtr_display() {
+    if (topPtr == nullptr) {
         cout << "ALERT!!!! Stack is Empty!!!!\n";
         return;
     }
-    Node* temp = stack_linked_list;
-    cout << "stack_linked_list elements: ";
+    Node* temp = topPtr;
+    cout << "topPtr elements: ";
     while (temp != nullptr) {
         cout << temp->data << " ";
         temp = temp->next;
@@ -95,12 +95,12 @@ void stack_linked_list_display() {
     cout << "\n";
 }
 
-void stack_linked_list_peek() {
-    if (stack_linked_list == nullptr) {
+void topPtr_peek() {
+    if (topPtr == nullptr) {
         cout << "ALERT!!!! Stack is Empty!!!!\n";
         return;
     }
-    cout << "Top element: " << stack_linked_list->data << " (stack_linked_list)\n";
+    cout << "Top element: " << topPtr->data << " (topPtr)\n";
 }
 
 // Main menu
@@ -109,7 +109,7 @@ int main() {
     while (true) {
         cout << "\nMain Menu\n";
         cout << "1. stack_array Operations\n";
-        cout << "2. stack_linked_list Operations\n";
+        cout << "2. topPtr Operations\n";
         cout << "3. Exit\n";
         cout << "Enter your choice: ";
         cin >> choice;
@@ -144,7 +144,7 @@ int main() {
             }
         } else if (choice == 2) {
             while (true) {
-                cout << "\nstack_linked_list Menu\n";
+                cout << "\ntopPtr Menu\n";
                 cout << "1. Push\n";
                 cout << "2. Pop\n";
                 cout << "3. Peek\n";
@@ -157,13 +157,13 @@ int main() {
                 if (stackChoice == 1) {
                     cout << "Enter number to push: ";
                     cin >> num;
-                    stack_linked_list_push(num);
+                    topPtr_push(num);
                 } else if (stackChoice == 2) {
-                    stack_linked_list_pop();
+                    topPtr_pop();
                 } else if (stackChoice == 3) {
-                    stack_linked_list_peek();
+                    topPtr_peek();
                 } else if (stackChoice == 4) {
-                    stack_linked_list_display();
+                    topPtr_display();
                 } else if (stackChoice == 5) {
                     break;
                 } else {
