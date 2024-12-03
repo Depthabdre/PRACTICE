@@ -8,18 +8,21 @@ struct student
     student *prev;
 };
 student *start = NULL;
+student *tail = NULL;
 void insertAtTheBeg(student *p)
 {
     if (start == NULL) {
         start = p;
-        p->next = NULL;
-        p->prev = NULL;
+        p->next = p;
+        p->prev = p;
+        tail = p;
     } else {
         student *temp = start;
         p->next = start;
-        p->prev = NULL;
+        p->prev = tail;
         temp->prev = p;
         start = p;
+        tail->next = start;
     }
 }
 void insertAtTheEnd(student *p)
