@@ -50,7 +50,7 @@ void stack_array_display() {
 
 int stack_array_peek() {
     if (stack_size <= 0) {
-        cout << "ALERT!!!! Stack is Empty!!!!\n";
+        cout << "ALERT!!!!❌📛⭕‼❌📛 Stack is Empty!!!!\n";
         return -1;
     } else {
         cout << "Top element: " << stack_array[top] << " (stack_array)\n";
