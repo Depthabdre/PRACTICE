@@ -34,6 +34,14 @@ char topPtr_pop()
     delete temp;
     return pop_ele;
 }
+char topPtr_peak() {
+    // if (stack_size <= 0) {
+    //     cout << "ALERT!!!!❌📛⭕‼❌📛 Stack is Empty!!!!\n";
+    //     return -1;
+    
+        return topPtr->data;
+    }
+
 
 bool Check_Palindrome()
 {
@@ -138,6 +146,54 @@ void Evaluate_Post()
     cout << "Error: Stack is empty, something went wrong during evaluation.\n";
 }
 }
+void inToPostConverter(){
+    string infix;
+    string postfix = "";
+    cout << "Enter an infix expression: ";
+    cin >> infix;
+    
+    for (int i = 0; i < infix.length(); i++) {
+        if (isdigit(infix[i])) {
+            postfix += infix[i];
+        }
+        else if (infix[i] == ')') {
+            bool flag = true;
+            while (flag) {
+                char temp = topPtr_peak();
+                if (temp != '(') {
+                    postfix += topPtr_pop();
+                } else {
+                    topPtr_pop();
+                    flag = false;
+                }
+            }
+        } else {
+            if (infix[i] == '(') {
+                topPtr_push(infix[i]);
+            } else {
+                if (infix[i] == '*' || infix[i] == '/') {
+                    while (topPtr != nullptr && (topPtr_peak() == '*' || topPtr_peak() == '/')) {
+                        postfix += topPtr_pop();
+                    }
+                    topPtr_push(infix[i]);
+                } else {
+                    while (topPtr != nullptr && (topPtr_peak() == '+' || topPtr_peak() == '-' || 
+                                                 topPtr_peak() == '*' || topPtr_peak() == '/')) {
+                        postfix += topPtr_pop();
+                    }
+                    topPtr_push(infix[i]);
+                }
+            }
+        }
+    }
+    
+    while (topPtr != nullptr) {
+        postfix += topPtr_pop();
+    }
+    
+    cout << "The Result Is " << postfix << "\n";
+}
+
 
 int main()
 {
@@ -172,7 +228,8 @@ int main()
         }
         else if (choice == 4)
         {
-            cout << "Enter infix expression to evaluate: ";
+            // cout << "Enter infix expression to evaluate: ";
+            inToPostConverter();
             // Call your infix evaluation function here
         }
         else if (choice == 5)
